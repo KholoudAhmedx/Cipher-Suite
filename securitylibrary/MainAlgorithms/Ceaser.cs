@@ -22,7 +22,7 @@ namespace SecurityLibrary
                 }
                 
             }
-            return cipher.ToLower();
+            return cipher;
 
         }
 
