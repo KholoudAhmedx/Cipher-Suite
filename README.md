@@ -3,4 +3,4 @@ This package provides a collection of cryptographic algorithms implemented in C#
 
 # Getting Started
 ## Installing
-<ol>Clone the repo using this command: <br/> ` git clone https://github.com/KholoudAhmedx/CyberSecurityProject.git `</ol>
+1. Clone the repo using this command: <br/> ``` git clone https://github.com/KholoudAhmedx/CyberSecurityProject.git ```
