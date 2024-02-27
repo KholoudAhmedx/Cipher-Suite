@@ -3,6 +3,7 @@ This package provides a collection of cryptographic algorithms implemented in C#
 
 # Getting Started
 ## Package Hierarchy
+```bash
 |-- .gitattributes
 |-- .gitignore
 |-- SecurityPackage.sln
@@ -45,5 +46,6 @@ This package provides a collection of cryptographic algorithms implemented in C#
                                 |-- DeffieHelmanTest.cs
                                 |-- Properties
                                     |-- AssemblyInfo.cs
+```
 ## Installing
 1. Clone the repo using this command: <br/> ``` git clone https://github.com/KholoudAhmedx/CyberSecurityProject.git ```
