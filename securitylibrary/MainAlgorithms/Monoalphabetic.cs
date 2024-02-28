@@ -1,6 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,14 +11,54 @@ namespace SecurityLibrary
     {
         public string Analyse(string plainText, string cipherText)
         {
-            throw new NotImplementedException();
-           
+            //throw new NotImplementedException();
+            if(String.IsNullOrEmpty(cipherText) || String.IsNullOrEmpty(plainText)) { return null; }
+            int CheckUpr = 0;
+            if(char.IsUpper(plainText[0])) { CheckUpr = 1; }
+            char[] KeyChar = new char[26];
+            int[] ValidIndices = new int[plainText.Length];
+            for(int i = 0; i < plainText.Length; i++)
+            {
+                int PlainIndex = char.ToUpper(plainText[i]) - 65;
+                if(CheckUpr == 0) { KeyChar[PlainIndex] = char.ToLower(cipherText[i]); }
+                else { KeyChar[PlainIndex] = char.ToUpper(cipherText[i]); }
+                ValidIndices[i] = PlainIndex;
+            }
+            for(int i = 0; i < 26; i++)
+            {
+                bool contains = ValidIndices.Contains(i);
+                if(!ValidIndices.Contains(i))
+                {
+                    for(int j = 0; j < 26; j++)
+                    {
+                        if(!KeyChar.Contains(char.ToLower(Convert.ToChar((j) + 65))) && !KeyChar.Contains(char.ToUpper(Convert.ToChar((j) + 65))))
+                        {
+                            if(CheckUpr == 0) { KeyChar[i] = char.ToLower(Convert.ToChar((j) + 65)); }
+                            else { KeyChar[i] = char.ToUpper(Convert.ToChar((j) + 65)); }
+                        }
+                    }
+                }
+            }
+            string Key = new string(KeyChar);
+            return Key;
         }
 
         public string Decrypt(string cipherText, string key)
         {
-            throw new NotImplementedException();
-
+            //throw new NotImplementedException();
+            if(String.IsNullOrEmpty(cipherText) || String.IsNullOrEmpty(key)) { return null; }
+            int CheckUpr = 0;
+            if(char.IsUpper(key[0])) { CheckUpr = 1; }
+            char[] PlainTextChar = new char[cipherText.Length];
+            for(int i = 0; i < cipherText.Length; i++)
+            {
+                char CipherLetter = char.ToLower(cipherText[i]);
+                if (CheckUpr == 1) { CipherLetter = char.ToUpper(cipherText[i]); }
+                int KeyIndex = key.IndexOf(CipherLetter);
+                PlainTextChar[i] = Convert.ToChar(KeyIndex + 65);
+            }
+            string PlainText = new string(PlainTextChar);
+            return PlainText;
         }
 
         public string Encrypt(string plainText, string key)
