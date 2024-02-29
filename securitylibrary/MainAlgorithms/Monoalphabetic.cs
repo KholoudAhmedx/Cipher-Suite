@@ -1,9 +1,8 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace SecurityLibrary
 {
@@ -11,29 +10,31 @@ namespace SecurityLibrary
     {
         public string Analyse(string plainText, string cipherText)
         {
-            //throw new NotImplementedException();
-            if(String.IsNullOrEmpty(cipherText) || String.IsNullOrEmpty(plainText)) { return null; }
+            
+            if (String.IsNullOrEmpty(cipherText) || String.IsNullOrEmpty(plainText)) 
+                return null; 
+
             int CheckUpr = 0;
-            if(char.IsUpper(plainText[0])) { CheckUpr = 1; }
+            if (char.IsUpper(plainText[0])) { CheckUpr = 1; }
             char[] KeyChar = new char[26];
             int[] ValidIndices = new int[plainText.Length];
-            for(int i = 0; i < plainText.Length; i++)
+            for (int i = 0; i < plainText.Length; i++)
             {
                 int PlainIndex = char.ToUpper(plainText[i]) - 65;
-                if(CheckUpr == 0) { KeyChar[PlainIndex] = char.ToLower(cipherText[i]); }
+                if (CheckUpr == 0) { KeyChar[PlainIndex] = char.ToLower(cipherText[i]); }
                 else { KeyChar[PlainIndex] = char.ToUpper(cipherText[i]); }
                 ValidIndices[i] = PlainIndex;
             }
-            for(int i = 0; i < 26; i++)
+            for (int i = 0; i < 26; i++)
             {
                 bool contains = ValidIndices.Contains(i);
-                if(!ValidIndices.Contains(i))
+                if (!ValidIndices.Contains(i))
                 {
-                    for(int j = 0; j < 26; j++)
+                    for (int j = 0; j < 26; j++)
                     {
-                        if(!KeyChar.Contains(char.ToLower(Convert.ToChar((j) + 65))) && !KeyChar.Contains(char.ToUpper(Convert.ToChar((j) + 65))))
+                        if (!KeyChar.Contains(char.ToLower(Convert.ToChar((j) + 65))) && !KeyChar.Contains(char.ToUpper(Convert.ToChar((j) + 65))))
                         {
-                            if(CheckUpr == 0) { KeyChar[i] = char.ToLower(Convert.ToChar((j) + 65)); }
+                            if (CheckUpr == 0) { KeyChar[i] = char.ToLower(Convert.ToChar((j) + 65)); }
                             else { KeyChar[i] = char.ToUpper(Convert.ToChar((j) + 65)); }
                         }
                     }
@@ -41,76 +42,115 @@ namespace SecurityLibrary
             }
             string Key = new string(KeyChar);
             return Key;
-        }
 
+
+        }
         public string Decrypt(string cipherText, string key)
         {
-            //throw new NotImplementedException();
-            if(String.IsNullOrEmpty(cipherText) || String.IsNullOrEmpty(key)) { return null; }
-            int CheckUpr = 0;
-            if(char.IsUpper(key[0])) { CheckUpr = 1; }
-            char[] PlainTextChar = new char[cipherText.Length];
-            for(int i = 0; i < cipherText.Length; i++)
+            if (String.IsNullOrEmpty(cipherText) || String.IsNullOrEmpty(key))
+                return null;
+            
+
+            string alphabet = "abcdefghijklmnopqrstuvwxyz";
+            Dictionary<char, char> decryptionMap = new Dictionary<char, char>();
+
+            for (int i = 0; i < alphabet.Length; i++)
             {
-                char CipherLetter = char.ToLower(cipherText[i]);
-                if (CheckUpr == 1) { CipherLetter = char.ToUpper(cipherText[i]); }
-                int KeyIndex = key.IndexOf(CipherLetter);
-                PlainTextChar[i] = Convert.ToChar(KeyIndex + 65);
+                decryptionMap[key[i]] = alphabet[i];
             }
-            string PlainText = new string(PlainTextChar);
-            return PlainText;
+
+            cipherText = cipherText.ToLower();
+
+            StringBuilder pT = new StringBuilder();
+            foreach (char c in cipherText)
+            {
+                if (decryptionMap.ContainsKey(c))
+                {
+                    pT.Append(decryptionMap[c]);
+                }
+                else
+                {
+                    pT.Append(c);
+                }
+            }
+
+            return pT.ToString();
         }
 
         public string Encrypt(string plainText, string key)
         {
-            throw new NotImplementedException();
+            if (string.IsNullOrEmpty(plainText) || string.IsNullOrEmpty(key))
+                return null;
+
+            string alphabet = "abcdefghijklmnopqrstuvwxyz";
+            Dictionary<char, char> encryptionM = new Dictionary<char, char>();
+
+            for (int i = 0; i < alphabet.Length; i++)
+            {
+                encryptionM[alphabet[i]] = key[i];
+            }
+
+            StringBuilder cipherText = new StringBuilder();
+            foreach (char c in plainText.ToLower())
+            {
+                if (encryptionM.ContainsKey(c))
+                    cipherText.Append(encryptionM[c]);
+                else
+                    cipherText.Append(c);
+            }
+
+            return cipherText.ToString();
         }
-
-
-
-
-
-
-
-        /// <summary>
-        /// Frequency Information:
-        /// E   12.51%
-        /// T	9.25
-        /// A	=
-        /// O	7.60
-        /// I	7.26
-        /// N	7.09
-        /// S	6.54
-        /// R	6.12
-        /// H	5.49
-        /// L	4.14
-        /// D	3.99
-        /// C	3.06
-        /// U	2.71
-        /// M	2.53
-        /// F	2.30
-        /// P	2.00
-        /// G	1.96
-        /// W	1.92
-        /// Y	1.73
-        /// B	1.54
-        /// V	0.99
-        /// K	0.67
-        /// X	0.19
-        /// J	0.16
-        /// Q	0.11
-        /// Z	0.09
-        /// </summary>
-        /// <param name="cipher"></param>
-        /// <returns>Plain text</returns>
-        /// 
 
         public string AnalyseUsingCharFrequency(string cipher)
         {
+            if (String.IsNullOrEmpty(cipher))
+                return null;
+            
+            else
+            {
+                Dictionary<char, int> freqMap = new Dictionary<char, int>();
+                cipher = cipher.ToLower();
+                foreach (char c in cipher)
+                {
+                    if (char.IsLetter(c))
+                    {
+                        if (freqMap.ContainsKey(c))
+                            freqMap[c]++;
+                        else
+                            freqMap[c] = 1;
+                    }
+                }
 
-            throw new NotImplementedException();
+                var freq = from entry in freqMap orderby entry.Value descending select entry;
 
+                string freqLetters = "etaoinsrhldcumfpgwybvkxjqz";
+                string alphabet = "abcdefghijklmnopqrstuvwxyz";
 
+                Dictionary<char, char> mapping = new Dictionary<char, char>();
+                StringBuilder newKey = new StringBuilder();
+                foreach (var entry in freq)
+                {
+                    newKey.Append(entry.Key);
+                }
+
+                for (int i = 0; i < Math.Min(freqLetters.Length, newKey.Length); i++)
+                {
+                    mapping[freqLetters[i]] = newKey[i];
+                }
+
+                StringBuilder keyHere = new StringBuilder();
+                foreach (char c in alphabet)
+                {
+                    if (mapping.ContainsKey(c))
+                        keyHere.Append(mapping[c]);
+                    else
+                        keyHere.Append(c);
+                }
+
+                Monoalphabetic monoalphabetic = new Monoalphabetic();
+                return monoalphabetic.Decrypt(cipher, keyHere.ToString());
+            }
         }
     }
 }
