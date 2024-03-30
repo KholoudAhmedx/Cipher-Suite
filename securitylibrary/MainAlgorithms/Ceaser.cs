@@ -41,8 +41,6 @@ namespace SecurityLibrary
                     }
                 }
             }
-
-
             return plaintext;
         }
 
