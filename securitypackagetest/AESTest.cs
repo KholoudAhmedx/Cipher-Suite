@@ -4,7 +4,7 @@ using SecurityLibrary.AES;
 
 namespace SecurityPackageTest
 {
-    [Ignore]
+    //[Ignore]
     [TestClass]
     public class AESTest
     {
