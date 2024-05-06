@@ -1,54 +1,30 @@
-# CyberSecurityProject
-This package provides a collection of cryptographic algorithms implemented in C#. From classic ciphers like the Caesar cipher and monoalphabetic substitution to more advanced techniques like the Diffie-Hellman key exchange, RSA (Rivest–Shamir–Adleman), and more.
+## Cryptographic Algorithms in C#
 
-# Getting Started
-## Package Hierarchy
-```bash
-|-- .gitattributes
-|-- .gitignore
-|-- SecurityPackage.sln
-|-- README.md
-|-- securitylibrary
-    |-- ICryptographic_Technique.cs
-    |-- SecurityLibrary.csproj
-    |-- ICryptographicTechnique.cs
-    |-- CryptographicTechnique.cs
-    |-- DiffieHellman
-        |-- DiffieHellman.cs
-        |-- MainAlgorithms
-            |-- HillCipher.cs
-            |-- AutokeyVigenere.cs
-            |-- PlayFair.cs
-            |-- RailFence.cs
-            |-- Monoalphabetic.cs
-            |-- Columnar.cs
-            |-- Ceaser.cs
-            |-- RepeatingKeyVigenere.cs
-            |-- Exceptions
-                |-- InvalidAnlysisException.cs
-                |-- Properties
-                    |-- AssemblyInfo.cs
-                    |-- RSA
-                        |-- RSA.cs
-                        |-- ElGamal
-                            |-- ELGAMAL.cs
-                            |-- securitypackagetest
-                                |-- PlayfairTest.cs
-                                |-- ColumnarTest.cs
-                                |-- MonoalphabeticTest.cs
-                                |-- ElGamalTest.cs
-                                |-- RSATest.cs
-                                |-- RailFenceTest.cs
-                                |-- CeaserTest.cs
-                                |-- SecurityPackageTest.csproj
-                                |-- VignereTest.cs
-                                |-- HillCipherTest.cs
-                                |-- DeffieHelmanTest.cs
-                                |-- Properties
-                                    |-- AssemblyInfo.cs
-```
-## Installing
-1. Clone the repo using this command: <br/> ``` git clone https://github.com/KholoudAhmedx/CyberSecurityProject.git ```
-## How To Test 
-Securitypackagetest folder contains the test scripts for each algorithm implemented. <br /> **To test do the following:** <br /> 1. Right click on each file of the desired algorithm for example, CeaserTest.cs <br /> 2. Click on Run Tests to check whether or not your implementation is correct ![ALT text](![image](https://github.com/KholoudAhmedx/CyberSecurityProject/assets/81588748/4807142f-b6d2-4f54-af7c-e9259ec67a8d.png)
-)
+This project provides a collection of implementations for various cryptographic algorithms in C#. It includes both classical ciphers like Caesar cipher and monoalphabetic substitution, as well as more advanced techniques like Diffie-Hellman key exchange and RSA (Rivest–Shamir–Adleman).
+## Features
+
+- Implementations of a variety of cryptographic algorithms
+- Support for both classical and modern techniques
+- Clear and well-documented code
+
+## Installation
+
+1. Clone the Repository: Use the following command to clone the repository from GitHub: <br />
+``` git clone https://github.com/KholoudAhmedx/CyberSecurityProject.git ```
+2. Build the Project: The project uses a standard .NET solution structure. You can build the project using your preferred IDE or command-line tools.
+
+## Usage
+
+The specific usage of each cryptographic technique will vary depending on the chosen algorithm. However, the provided implementations generally follow a common pattern: <br />
+
+Classes: Each algorithm is implemented in a separate class. <br />
+Methods: The class provides methods for encryption, decryption, and (where applicable) key generation.
+
+## Testing
+
+The SecurityPackageTest folder contains unit tests for each implemented algorithm. These tests can be used to verify the correctness of your code.
+
+## Additional Notes
+
+Consider including references or resources used for implementing these algorithms. <br />
+You can mention future plans or potential contributions (if any). <br />
