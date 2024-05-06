@@ -22,7 +22,7 @@ Methods: The class provides methods for encryption, decryption, and (where appli
 
 ## Testing
 
-The SecurityPackageTest folder contains unit tests for each implemented algorithm. These tests can be used to verify the correctness of your code.
+The `SecurityPackageTest` folder contains unit tests for each implemented algorithm. These tests can be used to verify the correctness of your code.
 
 ## Additional Notes
 
