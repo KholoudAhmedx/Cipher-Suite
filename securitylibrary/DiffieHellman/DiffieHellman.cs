@@ -14,36 +14,26 @@ namespace SecurityLibrary.DiffieHellman
 
         public int power(int f, int s, int sf)
         {
+            
+            int result = 1;
 
-            throw new NotImplementedException();
+            for (int i = 0; i < s; i++)
+            {
+                result *= f;
+                result = result % sf;
+            }
+            return result;
         }
 
         public List<int> GetKeys(int q, int alpha, int xa, int xb)
         {
             List<int> keys = new List<int>();
-            long ya = 1;
-            long yb = 1;
-            long ka = 1;
-            long kb = 1;
-            for (int i = 0; i < xa; i++) {
-                ya *= alpha;
-                ya = ya % q;
-            }
-           
-            for (int i = 0; i < xb; i++) { 
-                yb *= alpha;
-                yb = yb % q;
-            }
-            
-            for (int i = 0; i < xa; i++) {
-                ka *= yb;
-                ka = ka % q;
-            }
-            
-            for (int i = 0; i < xb; i++) {
-                kb *= ya;
-                kb = kb % q;
-            } 
+
+            int ya, yb, ka, kb;
+            ya = power(alpha, xa, q);
+            yb = power(alpha, xb, q);
+            ka = power(yb, xa, q);
+            kb = power(ya, xb, q);
 
             keys.Add((int)ka);
             keys.Add((int)kb);
